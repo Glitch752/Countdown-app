@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js"></script>
+    <title>Countdown</title>
+</head>
+<body id="body">
+    <div class="countdown-top">
+        <div class="countdown-time" id="countdownTime">Time until</div>
+        <input type="text" class="countdown-title" id="countdownTitle" placeholder="Countdown title..." maxlength="15">
+    </div>
+    <div class="countdown-center">
+        <div class="countdown-container" onmouseup="changeDate()">
+            <div class="countdown-timer" id="countdownTimer">Click to change date</div>
+            <div class="countdown-timer-description" id="countdownTimerDescription"></div>
+            <div class="countdown-timer-real" id="countdownTimerReal"></div>
+        </div>
+    </div>
+    <div class="countdown-bottom">
+        <input type="text" class="countdown-description" id="countdownDescription" placeholder="Countdown description..." maxlength="50">
+    </div>
+    <div class="change-date-menu-container" id="changeDateMenuContainer">
+        <div class="change-date-menu" id="changeDateMenu">
+            <!-- Allow user to change year, month, day, hour, minute, and second of countdown -->
+            <div class="change-date-menu-item">
+                <div class="change-date-menu-item-title">Date</div>
+                <input type="date" class="change-date-menu-item-input" id="changeDateDate">
+            </div>
+            <div class="change-date-menu-item">
+                <div class="change-date-menu-item-title">Time</div>
+                <input type="time" class="change-date-menu-item-input" id="changeDateTime">
+            </div>
+            <div class="change-date-menu-item">
+                <div class="change-date-menu-item-title">Countdown type</div>
+                <select class="change-date-menu-item-input" id="changeDateType">
+                    <option value="humanReadable">Human readable</option>
+                    <option value="milliseconds">Milliseconds</option>
+                </select>
+            </div>
+            <button class="change-date-menu-button" onclick="changeDateConfirm()">Confirm</button>
+        </div>
+    </div>
+    <div class="color-selection">
+        <div class="color-selection-item">
+            <div class="color-selection-item-title">Background color</div>
+            <input type="color" class="color-selection-item-input" id="backgroundColor" value="#ffffff">
+        </div>
+        <div class="color-selection-item">
+            <div class="color-selection-item-title">Text color primary</div>
+            <input type="color" class="color-selection-item-input" id="textColorPrimary" value="#000000">
+        </div>
+        <div class="color-selection-item">
+            <div class="color-selection-item-title">Text color secondary</div>
+            <input type="color" class="color-selection-item-input" id="textColorSecondary" value="#222222">
+        </div>
+    </div>
+    <svg class="publish-countdown" onclick="publishCountdown()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256s256-114.6 256-256C512 114.6 397.4 0 256 0zM406.6 278.6l-103.1 103.1c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25L306.8 288H128C110.3 288 96 273.7 96 256s14.31-32 32-32h178.8l-49.38-49.38c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l103.1 103.1C414.6 241.3 416 251.1 416 256C416 260.9 414.6 270.7 406.6 278.6z"/></svg>
+</body>
+</html>

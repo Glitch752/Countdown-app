@@ -1,5 +1,5 @@
-var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws');
-// var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host.split(':')[0] + ':4283');
+// var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws');
+var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host.split(':')[0] + ':4283');
 
 var msUpdateInterval = 10;
 
@@ -43,8 +43,8 @@ wsc.onmessage = function(message) {
         countdownDescription.innerHTML = description;
 
         var backgroundColor = parsedData.data.backgroundColor;
-        var textColorPrimary = parsedData.data.textColorPrimary;
-        var textColorSecondary = parsedData.data.textColorSecondary;
+        var textColorPrimary = parsedData.data.fontColorPrimary;
+        var textColorSecondary = parsedData.data.fontColorSecondary;
         
         var documentElement = document.documentElement;
         documentElement.style.setProperty('--background', backgroundColor);
@@ -53,21 +53,20 @@ wsc.onmessage = function(message) {
 
         var countdownTimerDescription = document.getElementById('countdownTimerDescription');
 
+        startDate = parsedData.data.date;
+
         if(countdownType === 'milliseconds') {
             countdownTimerDescription.innerHTML = 'Milliseconds';
-
             timerType = 'milliseconds';
-            startDate = parsedData.data.date;
-
-            updateTimer();
         } else {
             countdownTimerDescription.innerHTML = '';
-
             timerType = 'humanReadable';
-            startDate = parsedData.data.date;
-
-            updateTimer();
         }
+
+        var countdownTimerReal = document.getElementById('countdownTimerReal');
+        countdownTimerReal.innerHTML = new Date(parseInt(startDate)).toLocaleString();
+
+        updateTimer();
     } else if(parsedData.type === 'notCountdown') {
         var body = document.getElementById("body");
         body.innerHTML = '<h1>No countdown found</h1>';
@@ -77,6 +76,15 @@ wsc.onmessage = function(message) {
 function updateTimer() {
     var currentDate = new Date();
     var timeDifference = startDate - currentDate.getTime();
+    
+    if(timeDifference > 0) {
+        var countdownTime = document.getElementById('countdownTime');
+        countdownTime.innerHTML = "Time until";
+    } else {
+        var countdownTime = document.getElementById('countdownTime');
+        countdownTime.innerHTML = "Time since";
+        timeDifference = -timeDifference;
+    }
 
     if(timerType === 'milliseconds') {
         var countdownTimer = document.getElementById('countdownTimer');
@@ -89,14 +97,6 @@ function updateTimer() {
         var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-        if(timeDifference > 0) {
-            var countdownTime = document.getElementById('countdownTime');
-            countdownTime.innerHTML = "Time until";
-        } else {
-            var countdownTime = document.getElementById('countdownTime');
-            countdownTime.innerHTML = "Time since";
-        }
 
         countdownTimer.innerHTML = `
             <div class="countdown-human-readable">

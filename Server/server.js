@@ -36,8 +36,48 @@ wss.on('connection', function connection(ws) {
                     }));
                 }
             });
+        } else if(parsedData.type === 'createCountdown') {
+            //Create the id: First, change all spaces to dashes and change the string to lowercase
+            //Next, remove all non-alphanumeric characters. 
+            //Finally, if the id already exists, add a number to the end of the id.
+
+            var id = parsedData.data.name;
+            id = id.toLowerCase();
+            id = id.replace(/\s+/g, '-');
+            id = id.replace(/[^a-zA-Z0-9]/g, '');
+
+            iterateAgain(id, ws, parsedData);
         }
     });
 });
+
+function iterateAgain(id, ws, parsedData) {
+    idRef = db.ref(`countdowns/${id}`);
+    idNum = id.match(/\d+$/);
+
+    idRef.once('value', function(snapshot) {
+        if(snapshot.val() !== null) {
+            //Get the number at the end of the id
+            if(idNum !== null) {
+                idNum = parseInt(idNum) + 1;
+                id = id.replace(/\d+$/, idNum);
+            } else {
+                id = id + '2';
+            }
+            iterateAgain(id, ws, parsedData);
+        } else {
+            finishIterating(id, ws, parsedData);
+        }
+    });
+}
+
+function finishIterating(id, ws, parsedData) {
+    idRef.set(parsedData.data);
+
+    ws.send(JSON.stringify({
+        type: 'countdownCreated',
+        id: id
+    }));
+}
 
 console.log('Server started');

@@ -59,6 +59,7 @@ body {
     text-align: center;
     padding-left: 5rem;
     padding-right: 5rem;
+    color: var(--text-primary, #000);
 }
 .countdown-human-readable {
     display: flex;
@@ -86,4 +87,11 @@ body {
     font-size: 1.5rem;
     color: var(--text-secondary, #222);
     margin: 0;
+}
+.countdown-timer-real {
+    position: absolute;
+    top: 17rem;
+    font-size: 2rem;
+    font-family: monospace;
+    color: var(--text-secondary, #222);
 }
