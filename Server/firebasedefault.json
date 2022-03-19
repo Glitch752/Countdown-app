@@ -1,0 +1,12 @@
+{
+    "countdowns": {
+        "christmas": {
+            "name": "Christmas",
+            "description": "The amount of time until Christmas 2023",
+            "date": "1671973200000",
+            "countdownType": "humanReadable",
+            "backgroundColor": "#f8f8f8",
+            "fontColor": "#000000"
+        }
+    }
+}
