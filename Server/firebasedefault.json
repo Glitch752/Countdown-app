@@ -6,7 +6,8 @@
             "date": "1671973200000",
             "countdownType": "humanReadable",
             "backgroundColor": "#f8f8f8",
-            "fontColor": "#000000"
+            "fontColorPrimary": "#000000",
+            "fontColorSecondary": "#222222"
         }
     }
 }

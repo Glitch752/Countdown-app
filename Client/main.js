@@ -26,6 +26,7 @@ wsc.onopen = function() {
 };
 
 wsc.onmessage = function(message) {
+    console.log(message.data);
     var parsedData = JSON.parse(message.data);
     if(parsedData.type === 'countdown') {
         console.log(parsedData.data);
@@ -40,6 +41,15 @@ wsc.onmessage = function(message) {
 
         countdownTitle.innerHTML = title;
         countdownDescription.innerHTML = description;
+
+        var backgroundColor = parsedData.data.backgroundColor;
+        var textColorPrimary = parsedData.data.textColorPrimary;
+        var textColorSecondary = parsedData.data.textColorSecondary;
+        
+        var documentElement = document.documentElement;
+        documentElement.style.setProperty('--background', backgroundColor);
+        documentElement.style.setProperty('--text-primary', textColorPrimary);
+        documentElement.style.setProperty('--text-secondary', textColorSecondary);
 
         var countdownTimerDescription = document.getElementById('countdownTimerDescription');
 
@@ -79,6 +89,14 @@ function updateTimer() {
         var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        if(timeDifference > 0) {
+            var countdownTime = document.getElementById('countdownTime');
+            countdownTime.innerHTML = "Time until";
+        } else {
+            var countdownTime = document.getElementById('countdownTime');
+            countdownTime.innerHTML = "Time since";
+        }
 
         countdownTimer.innerHTML = `
             <div class="countdown-human-readable">
