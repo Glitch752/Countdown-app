@@ -1,5 +1,5 @@
-// var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws');
-var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host.split(':')[0] + ':4283');
+var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws');
+// var wsc = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host.split(':')[0] + ':4283');
 
 var msUpdateInterval = 10;
 
@@ -169,8 +169,10 @@ function updateTimer() {
     if(timerType === 'milliseconds') {
         var countdownTimer = document.getElementById('countdownTimer');
         countdownTimer.innerHTML = timeDifference;
+        countdownTimer.classList.remove('needs-scroll');
     } else if(timerType === 'humanReadable') {
         var countdownTimer = document.getElementById('countdownTimer');
+        countdownTimer.classList.add('needs-scroll');
 
         var years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365));
         var days = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));

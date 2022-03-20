@@ -1,8 +1,19 @@
+* {
+    overflow: hidden;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+}
 body {
     background-color: var(--background, #fff);
     font-family: "Roboto", sans-serif;
     font-size: 10px;
     overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
 }
 .countdown-top {
     display: flex;
@@ -48,9 +59,9 @@ body {
 .countdown-description {
     font-size: 3rem;
     color: var(--text-primary, #000);
-    margin-bottom: 0.5rem;
     font-family: monospace;
     margin-bottom: 2rem;
+    text-align: center;
 }
 .countdown-timer {
     font-size: 8rem;
@@ -60,6 +71,7 @@ body {
     padding-left: 5rem;
     padding-right: 5rem;
     color: var(--text-primary, #000);
+    overflow-x: auto;
 }
 .countdown-human-readable {
     display: flex;
@@ -94,4 +106,53 @@ body {
     font-size: 2rem;
     font-family: monospace;
     color: var(--text-secondary, #222);
+}
+
+@media screen and (max-width: 60rem) {
+    .countdown-timer {
+        font-size: 6rem;
+    }
+    .countdown-human-readable {
+        width: calc(100vw - 5rem);
+    }
+    .countdown-human-readable .countdown-value {
+        font-size: 5rem;
+    }
+    .countdown-human-readable .countdown-item {
+        font-size: 2.5rem;
+    }
+}
+@media screen and (max-width: 40rem) {
+    .countdown-timer {
+        font-size: 3rem;
+    }
+    .countdown-human-readable {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        padding-top: 6rem;
+    }
+    .countdown-timer {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .countdown-human-readable .countdown-item {
+        width: 10rem;
+    }
+}
+@media screen and (max-width: 32rem) {
+    .countdown-human-readable {
+        flex-wrap: nowrap;
+        width: max-content;
+        padding-top: 0;
+    }
+    .countdown-human-readable .countdown-item {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+    .countdown-timer-container {
+        display: inline-block;
+        width: 100vw;
+        overflow-x: scroll;
+    }
 }

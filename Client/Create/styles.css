@@ -1,8 +1,13 @@
+* {
+    overflow: hidden;
+}
+
 body {
     background-color: var(--background, #fff);
     font-family: "Roboto", sans-serif;
     font-size: 10px;
     overflow: hidden;
+    margin: 0;
 }
 .countdown-top {
     display: flex;
@@ -69,6 +74,8 @@ body {
     border: none;
     text-align: center;
     background-color: transparent;
+    white-space: pre-wrap;
+    width: 100vw;
 }
 .countdown-description {
     font-size: 3rem;
@@ -235,6 +242,7 @@ body {
     left: 1rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    z-index: 2;
 }
 .color-selection-item {
     margin-top: 0.5rem;
@@ -253,4 +261,57 @@ body {
     outline: none;
     z-index: 100;
     background-color: transparent;
+}
+
+
+@media screen and (max-width: 60rem) {
+    .countdown-timer {
+        font-size: 6rem;
+    }
+    .countdown-human-readable {
+        width: calc(100vw - 5rem);
+    }
+    .countdown-human-readable .countdown-value {
+        font-size: 5rem;
+    }
+    .countdown-human-readable .countdown-item {
+        font-size: 2.5rem;
+    }
+}
+@media screen and (max-width: 40rem) {
+    .countdown-timer {
+        font-size: 3rem;
+    }
+    .countdown-human-readable {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        padding-top: 6rem;
+    }
+    .countdown-timer {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .countdown-human-readable .countdown-item {
+        width: 10rem;
+    }
+}
+@media screen and (max-width: 32rem) {
+    .countdown-human-readable {
+        flex-wrap: nowrap;
+        width: max-content;
+        padding-top: 0;
+    }
+    .countdown-human-readable .countdown-item {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+    .countdown-timer.needs-scroll {
+        width: max-content;
+    }
+    .countdown-timer-container {
+        display: inline-block;
+        width: 100vw;
+        overflow-x: scroll;
+    }
 }
